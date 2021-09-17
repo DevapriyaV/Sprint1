@@ -1,30 +1,52 @@
 package com.brs.controller;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.brs.entity.Bus;
+import com.brs.exceptions.BusNotFoundException;
+import com.brs.service.BusService;
 import com.brs.service.IBusService;
 
+
 @RestController
+@RequestMapping(path="/bus")
 public class BusController {
 	@Autowired
 	private IBusService busservice;
 	@PostMapping("addBus")
-	public String addBus(@RequestBody Bus bus){
-		int i=busservice.addBus(bus);
-		String ss="could not create profile";
-		if(i>0) {
-			ss="profile created "+bus.getBusId();
-		}
-		return ss;
+	public ResponseEntity<Bus> addBus(@RequestBody Bus bus){
+	     Bus addedbus=busservice.addBus(bus);
+	     return new ResponseEntity<Bus>(busservice.addBus(bus),HttpStatus.OK);
 	}	
 	
-	@PostMapping("updatebus")
-	public String updatebus(@ModelAttribute Bus bus) {
-		busservice.updateBus(bus);
-		return "updated";
+	@PutMapping("updatebus")
+	public ResponseEntity<Bus> updatebus(@RequestBody Bus bus) throws BusNotFoundException {
+		return new ResponseEntity<Bus>(busservice.updateBus(bus), HttpStatus.OK);
+	}
+	
+	@DeleteMapping("deletebus/{busid}")
+	public ResponseEntity<Bus> deleteBus(@PathVariable int busId) throws BusNotFoundException{
+		return new ResponseEntity<Bus>(busservice.deleteBus(busId),HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("view/{busid}")
+	public ResponseEntity<Bus> getBusById(@PathVariable("id") int busId) throws BusNotFoundException{
+		return new ResponseEntity<Bus>(busservice.viewBus(busId) , HttpStatus.OK);
+	}
+	
+	@GetMapping("allbus")
+	public ResponseEntity <List<Bus>>getAllBus(){
+		return new ResponseEntity<List<Bus>>(busservice.viewAllBus(), HttpStatus.OK);
 	}
 }

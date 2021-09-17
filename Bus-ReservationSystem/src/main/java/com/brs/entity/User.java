@@ -2,25 +2,26 @@ package com.brs.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 
 @Entity
 public class User {
 	@Id
-	private int userLoginId;
+	private long userLoginId;
 	private String userName;
 	private String password;
 	private String firstName;
 	private String lastName;
 	private long contact;
 	private String email;
-	@OneToOne(targetEntity = Reservation.class)
+	@OneToOne(targetEntity=Reservation.class)
+
 	private Reservation reservation;
-	public int getUserLoginId() {
+	public  long getUserLoginId() {
 		return userLoginId;
 	}
-	public void setUserLoginId(int userLoginId) {
+	public void setUserLoginId(long userLoginId) {
 		this.userLoginId = userLoginId;
 	}
 	public String getUserName() {
@@ -65,7 +66,6 @@ public class User {
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
-	
 	
 
 }

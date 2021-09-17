@@ -77,7 +77,4 @@ public class Bus {
 	public void setAvaiableSeats(int avaiableSeats) {
 		this.avaiableSeats = avaiableSeats;
 	}
-	
-	
-
 }

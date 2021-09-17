@@ -18,6 +18,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.0.0'
+ 
 }
 
 test {

@@ -1,4 +1,4 @@
-package com.Bus_ReservationSystem;
+package com.brs.bus_reservationsystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
